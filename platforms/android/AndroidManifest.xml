@@ -11,15 +11,18 @@
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
                 <category android:name="android.intent.category.DEFAULT" />
+                <data android:host="ext" android:pathPrefix="/example.com:mycustomtype" android:scheme="vnd.android.nfc" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.nfc.action.TECH_DISCOVERED" />
                 <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/pg" />
             </intent-filter>
             <meta-data android:name="android.nfc.action.TECH_DISCOVERED" android:resource="@xml/nfc_tech_filter" />
             <intent-filter>
                 <action android:name="android.nfc.action.TAG_DISCOVERED" />
                 <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/pg" />
             </intent-filter>
             <meta-data android:name="android.nfc.action.TAG_DISCOVERED" android:resource="@xml/nfc_tech_filter" />
         </activity>
