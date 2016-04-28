@@ -35,7 +35,7 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
 
-
+        if(typeof (nfc) !== 'undefined') {alert('1');} else {alert('2');}
 
 
         nfc.addNdefListener (
