@@ -37,21 +37,12 @@ var app = {
 
         if(typeof (nfc) !== 'undefined') {alert('1');} else {alert('2');}
 
+        function failure(reason) {
+            navigator.notification.alert(reason, function() {}, "There was a problem");
+        }
 
         nfc.addNdefListener (
-            function (nfcEvent) {
-                var tag = nfcEvent.tag,
-                    ndefMessage = tag.ndefMessage;
-
-                // dump the raw json of the message
-                // note: real code will need to decode
-                // the payload from each record
-                alert(JSON.stringify(ndefMessage));
-
-                // assuming the first record in the message has
-                // a payload that can be converted to a string.
-                alert(nfc.bytesToString(ndefMessage[0].payload).substring(3));
-            },
+            app.onNdef,
             function () { // success callback
                 alert("Waiting for NDEF tag");
             },
@@ -60,42 +51,55 @@ var app = {
             }
         );
 
-        nfc.addMimeTypeListener('', app.onNfc,
-            function () { // success callback
-                alert("Waiting for NDEF tag");
-            },
-            function (error) { // error callback
-                alert("Error adding NDEF listener " + JSON.stringify(error));
-            } )
+        if (device.platform == "Android") {
 
-        nfc.addMimeTypeListener(
-            'text/pg',
-            app.onNfc,
-            function () { // success callback
-                alert("Waiting for NDEF tag");
-            },
-            function (error) { // error callback
-                alert("Error adding NDEF listener " + JSON.stringify(error));
-            }
-        );
+            // Android reads non-NDEF tag. BlackBerry and Windows don't.
+            nfc.addTagDiscoveredListener(
+                app.onNfc,
+                function() {
+                    console.log("Listening for non-NDEF tags.");
+                },
+                failure
+            );
+
+            nfc.addMimeTypeListener(
+                '',
+                app.onNdef,
+                function () { // success callback
+                    alert("Waiting for NDEF tag");
+                },
+                failure
+            );
+
+            nfc.addMimeTypeListener(
+                'text/pg',
+                app.onNdef,
+                function () { // success callback
+                    alert("Waiting for NDEF tag");
+                },
+                failure
+            );
+        }
+
+
 
     },
     onNfc: function (nfcEvent) {
 
-        var success = function() {
-            alert("Wrote data to tag");
-        };
-        var failure = function(reason) {
-            alert("NFC write failed " + reason);
-        };
-
         var tag = nfcEvent.tag;
 
-        alert(JSON.stringify(tag));
+        alert(JSON.stringify(nfcEvent.tag));
 
         navigator.notification.vibrate(100);
     },
-    // Update DOM on a Received Event
+    onNdef: function (nfcEvent) {
+
+        var tag = nfcEvent.tag;
+
+        alert(JSON.stringify(nfcEvent.tag));
+
+        navigator.notification.vibrate(100);
+    },
     receivedEvent: function(id) {
         var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
