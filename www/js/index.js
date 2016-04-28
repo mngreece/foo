@@ -96,7 +96,7 @@ var app = {
 
         var tag = nfcEvent.tag;
 
-        alert(JSON.stringify(nfcEvent.tag));
+        alert("onNdef: " + JSON.stringify(tag) + ": message" + tag.ndefMessage);
 
         navigator.notification.vibrate(100);
     },
