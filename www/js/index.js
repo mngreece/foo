@@ -35,6 +35,9 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
 
+
+
+
         nfc.addNdefListener (
             function (nfcEvent) {
                 var tag = nfcEvent.tag,
@@ -56,6 +59,41 @@ var app = {
                 alert("Error adding NDEF listener " + JSON.stringify(error));
             }
         );
+
+        nfc.addMimeTypeListener('', app.onNfc,
+            function () { // success callback
+                alert("Waiting for NDEF tag");
+            },
+            function (error) { // error callback
+                alert("Error adding NDEF listener " + JSON.stringify(error));
+            } )
+
+        nfc.addMimeTypeListener(
+            'text/pg',
+            app.onNfc,
+            function () { // success callback
+                alert("Waiting for NDEF tag");
+            },
+            function (error) { // error callback
+                alert("Error adding NDEF listener " + JSON.stringify(error));
+            }
+        );
+
+    },
+    onNfc: function (nfcEvent) {
+
+        var success = function() {
+            alert("Wrote data to tag");
+        };
+        var failure = function(reason) {
+            alert("NFC write failed " + reason);
+        };
+
+        var tag = nfcEvent.tag;
+
+        alert(JSON.stringify(tag));
+
+        navigator.notification.vibrate(100);
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
