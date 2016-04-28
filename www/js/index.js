@@ -35,7 +35,9 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
 
-        if(typeof (nfc) !== 'undefined') {alert('1');} else {alert('2');}
+        alert('1234');
+
+        if(typeof nfc !== 'undefined') {alert('1');} else {alert('2');}
 
         function failure(reason) {
             navigator.notification.alert(reason, function() {}, "There was a problem");
@@ -80,13 +82,12 @@ var app = {
                 failure
             );
         }
-
-
-
     },
     onNfc: function (nfcEvent) {
 
         var tag = nfcEvent.tag;
+
+        alert('122342432423');
 
         alert("onNfc: " + JSON.stringify(nfcEvent.tag) +  + ": message" + tag.ndefMessage);
 
@@ -95,6 +96,8 @@ var app = {
     onNdef: function (nfcEvent) {
 
         var tag = nfcEvent.tag;
+
+        alert('fdsjifsdjkfhjsd');
 
         alert("onNdef: " + JSON.stringify(tag) + ": message" + tag.ndefMessage);
 
