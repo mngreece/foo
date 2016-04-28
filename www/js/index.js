@@ -36,7 +36,7 @@ var app = {
         app.receivedEvent('deviceready');
 
         alert('1234');
-
+/*
         if(typeof nfc !== 'undefined') {alert('1');} else {alert('2');}
 
         function failure(reason) {
@@ -81,7 +81,7 @@ var app = {
                 },
                 failure
             );
-        }
+        }*/
     },
     onNfc: function (nfcEvent) {
 
