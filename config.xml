@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.example.foo" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Foo</name>
+<widget id="com.reece.hackathon" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Hackathon</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        RFID Hack
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="matt.ng@reece.com.au" href="http://reece.com.au">
+        Reece Hackathon
     </author>
     <content src="index.html" />
     <plugin name="phonegap-nfc" source="npm" />
